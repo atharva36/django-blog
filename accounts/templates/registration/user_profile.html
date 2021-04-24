@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+{{ page_user.user.first_name }}'s Profile
+{% endblock %}
+{% block content %}
+
+<header class="masthead" style="background-image: url('/static/blog/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{ page_user.user.first_name }}'s Profile</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-2">
+                {% if page_user.profile_pic %}
+                <img src="{{ page_user.profile_pic.url }}" width="200" height="200">
+                {% else %}
+                <img src="{% static 'blog/images/pfp.jpg' %}" width="200" height="200">
+                {% endif %}
+            </div>
+            <div class="col-md-10">
+                <div class="card-body">
+                    <h3 class="card-title pl-2">
+                        {{ page_user.user.first_name }}
+                        {{ page_user.user.last_name }}
+                    </h3>
+                    <h5 class="text-muted pl-2">
+                        {% if page_user.website_url %}
+                            <a href="{{ page_user.website_url }}"><i class="fa fa-globe " aria-hidden="true"></i></a>&nbsp;
+                    
+                        {% endif %}
+                         
+                        {% if page_user.facebook_url %}
+                            <a href="{{ page_user.facebook_url }}"> <i class="fab fa-facebook-f"
+                                aria-hidden="true"></i></a>&nbsp; 
+                        {% endif %}
+                         
+                        {% if page_user.twitter_url %}
+                            <a href="{{ page_user.twitter_url }}"> <i class="fab fa-twitter"
+                                aria-hidden="true"></i></a>&nbsp; 
+                        {% endif %}
+                         
+                        {% if page_user.instagram_url %}
+                            <a href="{{ page_user.instagram_url }}"> <i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        {% endif %}
+                            </h5>
+                    <p class="card-text mt-1 p-2">{{ page_user.bio }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

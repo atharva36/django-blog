@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Delete Post
+{% endblock %}
+{% block content %}
+
+<header class="masthead" style="background-image: url('/static/blog/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Delete Post : {{ post.title }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form method="POST" encType="multipart/form-data">
+                <div class="control-group">
+                    {% csrf_token %}
+                    <h2 class="text-center">Are you sure you want to delete this post?</h2>
+                    <div class="form-group my-4 text-center">
+                        <button class="btn btn-primary">DELETE</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="control-group">
+                <h2 class="text-center">You can't delete other user's post!</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="control-group">
+                <h2 class="text-center">You don't have access!</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<br>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+{{post.category}} Posts
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('/static/blog/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>{{ cats }} Posts</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{% if category_posts %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% for post in category_posts %}
+                <div class="post-preview">
+                    <a href="#">
+                        <h2 class="post-title">
+                            <a href="{% url 'articleDetail' post.pk %}">{{post.title}} </a>
+                        </h2>
+                        <p class="post-subtitle">
+                            {{post.snippet}}
+                        </p>
+                    </a>
+
+                    <strong class="post-meta">Posted by
+                        <a href="{% url 'show_profile_page' post.author.profile.id %}"> {{post.author.first_name}}
+                            {{post.author.last_name}}</a>
+                        on {{ post.created_on}}</strong>
+
+                    <small>
+                        {% if user.is_authenticated %}
+                        {% if user.id == post.author.id %}
+                        <a href="{% url 'edit_post' post.pk %}">(edit)</a>
+                        <a href="{% url 'delete_post' post.pk %}">(delete)</a>
+                        {% endif %}
+                        {% endif %}
+                    </small>
+                </div>
+                <br>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endblock content %}

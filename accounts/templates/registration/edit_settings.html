@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+Edit Settings
+{% endblock %}
+{% block content %}
+
+<header class="masthead" style="background-image: url('/static/blog/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Edit Settings</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form method="POST" encType="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="form-group my-4 text-center">
+                    <button class="btn btn-primary">Update Settings</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
